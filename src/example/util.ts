@@ -17,4 +17,7 @@ export const Utils = {
       theArray[ k + 3 ] = 1;
     }
   },
+  isMobile: () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  },
 }

@@ -175,6 +175,11 @@ export class EXPBirdsGlTF extends ThreeScene {
             count: Math.floor(BIRDS / 4)
         };
 
+        // if run on mobile, count will decrease
+        if ( Utils.isMobile() ) {
+            effectController.count = Math.floor(BIRDS / 32);
+        }
+
         const valuesChanger = () => {
             this.velocityUniforms[ 'separationDistance' ].value = effectController.separation;
             this.velocityUniforms[ 'alignmentDistance' ].value = effectController.alignment;

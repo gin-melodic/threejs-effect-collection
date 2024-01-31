@@ -11,11 +11,11 @@ type ExpCollection = {
 
 function App() {
   const examples:ExpCollection[] = [{
-    name: 'WebGL Birds GLTF',
-    creator: () => new EXPBirdsGlTF()
-  }, {
     name: 'WebGL Modifier Tessellation',
     creator: () => new EXPModifierTessellation()
+  }, {
+    name: 'WebGL Birds GLTF',
+    creator: () => new EXPBirdsGlTF()
   }];
 
   const selectOptions = examples.map((item, index) =>
@@ -25,6 +25,13 @@ function App() {
   useLayoutEffect(() => {
     if (!runOnceRef.current) {
       runOnceRef.current = true
+
+      const canvas = document.getElementById("main") as HTMLCanvasElement
+      canvas.addEventListener('webglcontextlost', (event) => {
+        event.preventDefault();
+        alert('Out of memory')
+      })
+
       runExample(current)
     }
   }, [runOnceRef])

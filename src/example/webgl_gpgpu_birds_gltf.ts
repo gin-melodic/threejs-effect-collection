@@ -1,4 +1,4 @@
-import {CanvasSize, ThreeScene} from "./base.ts";
+import {ThreeScene} from "./base.ts";
 import * as THREE from 'three'
 import Stats from 'three/addons/libs/stats.module.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
@@ -20,7 +20,6 @@ export class EXPBirdsGlTF extends ThreeScene {
     backgroundColor = 0x000000
     size = 0.1
     textureAnimation!: THREE.DataTexture
-    gui!: GUI
     birdGeometry!: THREE.BufferGeometry
     velocityUniforms!: {[p: string]: THREE.IUniform}
     positionUniforms!: {[p: string]: THREE.IUniform}
@@ -41,7 +40,6 @@ export class EXPBirdsGlTF extends ThreeScene {
 
     constructor(backgroundColor?: number) {
         super();
-        this.name = 'Birds GLTF';
         if (backgroundColor) {
             this.backgroundColor = backgroundColor
         }
@@ -166,8 +164,6 @@ export class EXPBirdsGlTF extends ThreeScene {
         container.style.touchAction = 'none';
         container.addEventListener( 'pointermove', this.onPointerMove, false );
 
-        window.addEventListener( 'resize', this.onWindowResize, false );
-
         const gui = new GUI();
 
         const effectController = {
@@ -202,12 +198,8 @@ export class EXPBirdsGlTF extends ThreeScene {
     }
 
     destroy() {
-        const canvas = this.renderer!.domElement;
-        const container = canvas.parentElement!
-        container.removeEventListener( 'pointermove', this.onPointerMove, false );
-        this.stats.dom.remove()
-        this.gui.destroy()
         window.removeEventListener( 'resize', this.onWindowResize, false );
+        super.destroy()
     }
 
     initComputeRenderer() {
@@ -344,15 +336,13 @@ export class EXPBirdsGlTF extends ThreeScene {
     }
 
     onWindowResize() {
+        super.onWindowResize()
         this.windowHalfX = window.innerWidth / 2;
         this.windowHalfY = window.innerHeight / 2;
-        this.camera.aspect = window.innerWidth / window.innerHeight;
-        this.camera.updateProjectionMatrix();
-        this.renderer!.setSize( CanvasSize().width, CanvasSize().height );
     }
 
     animate() {
-        requestAnimationFrame(() => {
+        this.animationId = requestAnimationFrame(() => {
             this.animate()
         })
         this.render()

@@ -8,4 +8,5 @@ A React TS Code Collection for [Threejs examples](https://threejs.org/examples/)
 
 ## Finish Examples
 
-- [gpgpu/birds/gltf](https://github.com/mrdoob/three.js/blob/master/examples/webgl_gpgpu_birds_gltf.html)
+- [gpgpu/birds/gltf](https://threejs.org/examples/?q=birds#webgl_gpgpu_birds_gltf)
+- [modifier/tessellation](https://threejs.org/examples/?q=Tessellation#webgl_modifier_tessellation)
